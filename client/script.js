@@ -6,6 +6,8 @@ const chatContainer = document.querySelector('#chat_container');
 
 let loadInterval;
 
+
+// Loading while waiting to find text
 function loader(element) {
   element.textContent = '';
 
@@ -18,6 +20,8 @@ function loader(element) {
   }, 300)
 }
 
+
+// InterActive typing.
 function typeText(element, index) {
   let index = 0;
 
@@ -29,4 +33,13 @@ function typeText(element, index) {
       clearInterval(interval)
     }
   }, 20)
+}
+
+// generate uniqueId on every message
+function generateUniqueId() {
+  const timestamp = Date.now();
+  const randomNumber = Math.random();
+  const hexadecimalString = randomNumber.toString(16);
+
+  return `id-${timestamp}-${hexadecimalString}`;
 }
