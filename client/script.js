@@ -43,3 +43,41 @@ function generateUniqueId() {
 
   return `id-${timestamp}-${hexadecimalString}`;
 }
+
+// chatStripe - style on both user and Ai on view screen
+function chatStripe(isAi, value, uniqueId) {
+  return 
+  (`
+      <div class='wrapper ${isAi && 'ai'}' >
+        <div class='chat'>
+          <div class='profile'>
+            <img 
+              src="${isAi} ? ${bot} : ${user}"
+              alt="${isAi} ? 'bot' : 'user' "/>
+          </div>
+          <div class"message" id=${uniqueId}>${value}</div>
+        </div>
+      </div>
+  `)
+}
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const data = FormData(form);
+
+  // user's chatStripe
+  chatContainer.innerHTML += chatStripe(false, data.get('prompt'));
+
+  form.reset();
+
+  // Ai's chatStripe
+  const uniqueId = generateUniqueId();
+  chatContainer.innerHTML += chatStripe(true, " ", uniqueId);
+
+  chatContainer.scrollTop = chatContainer.scrollHeight;
+
+  const messageDiv = document.getElementById(uniqueId);
+
+  loader(messageDiv);
+}
