@@ -14,20 +14,20 @@ function loader(element) {
   loadInterval = setInterval(() => {
     element.textContent += '.';
 
-    if(element.textContent === '....') {
-      element.textContent= '';
+    if (element.textContent === '....') {
+      element.textContent = '';
     }
   }, 300)
 }
 
 
 // InterActive typing.
-function typeText(element, index) {
+function typeText(element, text) {
   let index = 0;
 
   let interval = setInterval(() => {
     if (index < text.length) {
-      element.innerHTML += text.charAt(index);
+      element.innerHTML += text.chartAt(index);
       index++;
     } else {
       clearInterval(interval)
@@ -46,14 +46,13 @@ function generateUniqueId() {
 
 // chatStripe - style on both user and Ai on view screen
 function chatStripe(isAi, value, uniqueId) {
-  return 
-  (`
-      <div class='wrapper ${isAi && 'ai'}' >
-        <div class='chat'>
-          <div class='profile'>
+  return (`
+      <div class="wrapper ${isAi && 'ai'}">
+        <div class="chat">
+          <div class="profile">
             <img 
-              src="${isAi} ? ${bot} : ${user}"
-              alt="${isAi} ? 'bot' : 'user' "/>
+              src="${isAi ? bot : user}"
+              alt="${isAi ? 'bot' : 'user'} "/>
           </div>
           <div class"message" id=${uniqueId}>${value}</div>
         </div>
@@ -64,14 +63,14 @@ function chatStripe(isAi, value, uniqueId) {
 const handleSubmit = async (e) => {
   e.preventDefault();
 
-  const data = FormData(form);
+  const data = new FormData(form);
 
   // user's chatStripe
   chatContainer.innerHTML += chatStripe(false, data.get('prompt'));
 
   form.reset();
 
-  // Ai's chatStripe
+  // Ai's/bot's chatStripe
   const uniqueId = generateUniqueId();
   chatContainer.innerHTML += chatStripe(true, " ", uniqueId);
 
