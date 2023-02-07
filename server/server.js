@@ -30,7 +30,7 @@ app.post("/", async (req, res) => {
         top_p: 1,
         frequency_penalty: 0.5, // not likely to repeat the same text on the same question.
         presence_penalty: 0,
-        stop: ["\"\"\""],
+        // stop: ["\"\"\""],
     });
 
     res.status(200).send({
